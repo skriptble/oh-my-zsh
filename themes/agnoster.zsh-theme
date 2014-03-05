@@ -188,6 +188,20 @@ prompt_status() {
   [[ -n "$symbols" ]] && prompt_segment black default "$symbols"
 }
 
+prompt_mode() {
+  if [[ -z "$vim_mode" ]]; then
+    vim_mode=$vim_ins_mode
+  fi
+
+  if [[ $vim_mode == $vim_ins_mode ]]; then
+    prompt_segment 252 blue "$vim_mode"
+  fi
+  if [[ $vim_mode == $vim_cmd_mode ]]; then
+    prompt_segment 252 022 "$vim_mode"
+  fi
+
+}
+
 ## Main prompt
 build_prompt() {
   RETVAL=$?
@@ -197,6 +211,7 @@ build_prompt() {
   prompt_dir
   prompt_git
   prompt_hg
+  prompt_mode
   prompt_end
 }
 
